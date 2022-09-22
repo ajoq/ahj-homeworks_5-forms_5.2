@@ -3,73 +3,137 @@
     box-sizing: border-box;
 }
 
-.goods {
+.products {
     width: 600px;
+    position: relative;
 }
 
-.goods-header {
+.products-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 20px;
     margin-bottom: 10px;
+    font-weight: 600;
 }
 
-.goods-header__add {
+.products-header__add {
     cursor: pointer;
     padding: 10px;
 }
 
-.goods-list {
+.products-list {
     border: 1px solid #dee2e6;
     width: 100%;
     overflow-x: auto;
 }
 
-.goods-list__header {
+.products-list__header {
     display: flex;
     border-bottom: 1px dashed #dee2e6;
+    font-weight: 600;
 }
 
-
-.goods-list__item {
-    display: flex;
-}
-
-.goods-name {
-    width: 60%;
-}
-
-.goods-price,
-.goods-actions {
-    width: 20%;
-}
-
-.goods-name,
-.goods-price,
-.goods-actions {
-    display: flex;
-    align-items: center;
+.products-list__header,
+.products-list__items {
     padding: 5px;
 }
 
-.goods-actions__item {
+.products-list__item {
+    display: flex;
+}
+
+.products-name {
+    width: 60%;
+}
+
+.products-price,
+.products-actions {
+    width: 20%;
+}
+
+.products-name,
+.products-price,
+.products-actions {
+    display: flex;
+    align-items: center;
+}
+
+.products-actions__item {
     padding: 5px;
     cursor: pointer;
 }
 
+.products-actions__item:hover,
+.products-header__add:hover {
+    outline: 1px solid #dee2e6;
+}
+
+.modal {
+    /* display: none; */
+    position: absolute;
+    border: 10px solid #dee2e6;
+    background-color: #fff;
+}
+
+.form {
+    padding: 20px;
+}
+
+.modal-form__field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+#modal-form input {
+    padding: 5px;
+    min-width: 250px;
+}
+
+.modal-form__buttons {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 10px;
+}
+
+.modal-form__buttons button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.modal-form__buttons button:hover {
+    outline: 5px solid #dee2e6;
+}
+
+.modal-form__buttons_save {
+    background: green;
+    color: #fff;
+    border: 1px solid green;
+}
+
+.modal-form__buttons_reset {
+    background: red;
+    color: #fff;
+    border: 1px solid red;
+}
+
 @media (max-width: 576px) {
-    .goods {
+    .products {
         width: auto;
     }
-    .goods-header {
+    .products-header {
         flex-direction: column;
         align-items: baseline;
     }
-    .goods-list {
-        min-width: 400px;
+    .products-list {
+        min-width: 420px;
     }
-    .goods-list-responsive {
+    .products-list-responsive {
         overflow-x: auto;
+    }
+    .modal {
+        left: auto;
     }
 }

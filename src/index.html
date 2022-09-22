@@ -9,41 +9,59 @@
 </head>
 <body>
     <div class="container">
-        <div class="goods">
-            <div class="goods-header">
-                <div class="goods-header__title">Товары</div>
-                <div class="goods-header__add">+</div>
+        <div class="products">
+            <div class="modal">
+                <div class="form">
+                    <form id="modal-form" action="">
+                        <div class="modal-form__field">
+                            <label for="name">Название</label>
+                            <input type="text" id="name" name="product_name">
+                        </div>
+                        <div class="modal-form__field">
+                            <label for="mail">Стоимость</label>
+                            <input type="text" id="price" name="product_price">
+                        </div>
+                        <div class="modal-form__buttons">
+                            <button class="modal-form__buttons_save" type="submit">Сохранить</button>
+                            <button class="modal-form__buttons_reset" type="reset">Отмена</button>
+                        </div>                    
+                    </form>
+                </div>
             </div>
-            <div class="goods-list-responsive">
-                <div class="goods-list">
-                    <div class="goods-list__header">
-                        <div class="goods-name">Название</div>
-                        <div class="goods-price">Стоимость</div>
-                        <div class="goods-actions">Действия</div>
+            <div class="products-header">
+                <div class="products-header__title">Товары</div>
+                <div class="products-header__add">+</div>
+            </div>
+            <div class="products-list-responsive">
+                <div class="products-list">
+                    <div class="products-list__header">
+                        <div class="products-name">Название</div>
+                        <div class="products-price">Стоимость</div>
+                        <div class="products-actions">Действия</div>
                     </div>
-                    <div class="goods-list__items">
-                        <div class="goods-list__item">
-                            <div class="goods-name">iPhone XR</div>
-                            <div class="goods-price">60 000</div>
-                            <div class="goods-actions">
-                                <span class="goods-actions__item">✎</span>
-                                <span class="goods-actions__item">✕</span>
+                    <div class="products-list__items">
+                        <div class="products-list__item">
+                            <div class="products-name">iPhone XR</div>
+                            <div class="products-price">60 000</div>
+                            <div class="products-actions">
+                                <span class="products-actions__item">✎</span>
+                                <span class="products-actions__item">✕</span>
                             </div>
                         </div>
-                        <div class="goods-list__item">
-                            <div class="goods-name">Samsunh Galaxy S10+</div>
-                            <div class="goods-price">80 000</div>
-                            <div class="goods-actions">
-                                <span class="goods-actions__item">✎</span>
-                                <span class="goods-actions__item">✕</span>
+                        <div class="products-list__item">
+                            <div class="products-name">Samsunh Galaxy S10+</div>
+                            <div class="products-price">80 000</div>
+                            <div class="products-actions">
+                                <span class="products-actions__item">✎</span>
+                                <span class="products-actions__item">✕</span>
                             </div>
                         </div>      
-                        <div class="goods-list__item">
-                            <div class="goods-name">Huawei View</div>
-                            <div class="goods-price">50 000</div>
-                            <div class="goods-actions">
-                                <span class="goods-actions__item">✎</span>
-                                <span class="goods-actions__item">✕</span>
+                        <div class="products-list__item">
+                            <div class="products-name">Huawei View</div>
+                            <div class="products-price">50 000</div>
+                            <div class="products-actions">
+                                <span class="products-actions__item">✎</span>
+                                <span class="products-actions__item">✕</span>
                             </div>
                         </div>                                  
                     </div>
