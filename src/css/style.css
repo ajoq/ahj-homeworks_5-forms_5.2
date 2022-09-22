@@ -1,3 +1,75 @@
-body {
-    color: #999;
-  }
+.container {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.goods {
+    width: 600px;
+}
+
+.goods-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.goods-header__add {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.goods-list {
+    border: 1px solid #dee2e6;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.goods-list__header {
+    display: flex;
+    border-bottom: 1px dashed #dee2e6;
+}
+
+
+.goods-list__item {
+    display: flex;
+}
+
+.goods-name {
+    width: 60%;
+}
+
+.goods-price,
+.goods-actions {
+    width: 20%;
+}
+
+.goods-name,
+.goods-price,
+.goods-actions {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.goods-actions__item {
+    padding: 5px;
+    cursor: pointer;
+}
+
+@media (max-width: 576px) {
+    .goods {
+        width: auto;
+    }
+    .goods-header {
+        flex-direction: column;
+        align-items: baseline;
+    }
+    .goods-list {
+        min-width: 400px;
+    }
+    .goods-list-responsive {
+        overflow-x: auto;
+    }
+}
