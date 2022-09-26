@@ -1,4 +1,4 @@
-const modalDiv = document.querySelector('.modal');
-const productsDiv = document.querySelector('.products');
+import ProductsCrud from './ProductsCrud';
 
-modalDiv.style.left = (productsDiv.offsetWidth / 2) - (modalDiv.offsetWidth / 2) + 'px';
+const products = new ProductsCrud();
+products.init();
