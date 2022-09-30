@@ -1,58 +1,42 @@
 export default class ProductsCrud {
-    constructor() {
-        this.productsArr = [
-            {
-                id: 1,
-                name: 'iPhone XR',
-                price: 60000
-            },
-            {
-                id: 2,
-                name: 'Samsunh Galaxy S10+',
-                price: 80000
-            },
-            {
-                id: 3,
-                name: 'Huawei View',
-                price: 50000
-            }
-        ];
+    constructor(products) {
+        this.productsArr = [];
+        if (products) this.productsArr = products;
     }
 
     init() {
         this.form = document.forms.addUpdateProduct;
+        this.deleteConfirm = document.querySelector('.delete');
         this.modal = document.querySelector('.modal');
-        this.modalSaveBtn = document.querySelector('.modal-form__buttons_save');
-        this.modalCanselBtn = document.querySelector('.modal-form__buttons_reset');
+
+        this.productSaveBtn = document.querySelector('.product-form__buttons_save');
+        this.productCancelBtn = document.querySelector('.product-form__buttons_reset');
+
         this.products = document.querySelector('.products');
+        this.productsDeleteItem = document.querySelector('.delete-product');
         this.producstList = document.querySelector('.products-list__items');
         this.productsAddButton = document.querySelector('.products-header__add');
         
         this.editProductId = null;
         this.editProductArrIndex = null;
-        this.lastProductId = 3;
+        this.lastProductId = this.productsArr.length;
 
         this.events();
         this.updateList();
     }
     
-    cancel(e) {
-        e.preventDefault();
-
-        this.form.reset();
-        this.modal.classList.remove('show');
-
-        this.eventsEnable();
-        this.editProductId = null;
-        this.editProductArrIndex = null;
-    }
-
     events() {
-        this.modalSaveBtn.addEventListener('click', (e) => this.productSave(e));
-        this.modalCanselBtn.addEventListener('click', (e) => this.cancel(e));
-        this.producstList.addEventListener('click', (e) => this.eventsEditDelete(e));
-        this.eventsOnce();
+        this.productSaveBtn.addEventListener('click', (e) => this.productSave(e));
+        this.productCancelBtn.addEventListener('click', (e) => this.productCancel(e));
+        this.products.addEventListener('click', (e) => this.eventsButtons(e));
+
+        // this.eventsOnce(); // События с параметром once: true
     }
+
+    // eventsOnce() {
+    //     this.products.addEventListener('click', (e) => this.eventsButtons(e), {once: true});
+    //     // this.products.addEventListener('click', this.eventsButtons.bind(this), {once: true});
+    // }
     
     eventsDisable() {
         this.eventButtons = document.querySelectorAll('.event-button');
@@ -61,7 +45,15 @@ export default class ProductsCrud {
         });
     }
 
-    eventsEditDelete(e) {
+    eventsButtons(e) {
+        // Проверки не было при попытке использования eventsOnce
+        if (this.modal.classList.contains('show')) {
+            return;
+        }
+
+        if (e.target.classList.contains('add-btn')) {
+            this.showModal(this.form);
+        };        
         if (e.target.classList.contains('edit-btn')) {
             this.productEdit(e.target);
         };
@@ -71,22 +63,30 @@ export default class ProductsCrud {
     }
     
     eventsEnable() {
-        this.eventBtns = document.querySelectorAll('.event-button');
-        Array.from(this.eventBtns).forEach(item => {
+        this.eventButtons = document.querySelectorAll('.event-button');
+        Array.from(this.eventButtons).forEach(item => {
             item.classList.remove('btn-disable');
         })
-        this.eventsOnce();
+        // this.eventsOnce();
     }
     
-    eventsOnce() {
-        this.productsAddButton.addEventListener('click', () => this.showModal(), {once: true});
+    productCancel(e) {
+        e.preventDefault();
+
+        this.form.reset();
+        this.form.classList.remove('show');
+        this.modal.classList.remove('show');
+
+        this.eventsEnable();
+        this.editProductId = null;
+        this.editProductArrIndex = null;
     }
 
     productEdit(tag) {
         this.editProductId = +(tag.closest('div.products-list__item').dataset.id);
         this.editProductArrIndex = this.productsArr.findIndex((item) => item.id === this.editProductId);
 
-        this.showModal();
+        this.showModal(this.form);
         this.form.elements.name.value = this.productsArr[this.editProductArrIndex].name;
         this.form.elements.price.value = this.productsArr[this.editProductArrIndex].price;
     }
@@ -94,17 +94,38 @@ export default class ProductsCrud {
     productDelete(tag) {
         const delProductId = +(tag.closest('div.products-list__item').dataset.id);
         const delProductArrIndex = this.productsArr.findIndex((item) => item.id === delProductId);
-        this.productsArr.splice(delProductArrIndex, 1);
-        this.updateList();
+        this.showModal(this.deleteConfirm);
+        this.productsDeleteItem.innerHTML = this.productsArr[delProductArrIndex].name;
+
+        const deleteButtons = document.querySelector('.delete-buttons');
+
+        deleteButtons.addEventListener('click', (e) => {
+            if (e.target.classList.contains('delete-buttons_save')) {
+                this.productsArr.splice(delProductArrIndex, 1);
+                this.updateList();
+                this.productDeleteCloseModal();
+                return;
+            }
+            if (e.target.classList.contains('delete-buttons_reset')) {
+                this.productDeleteCloseModal(); 
+                return;
+            }
+        }, {once : true});
+    }
+
+    productDeleteCloseModal() {
+        this.deleteConfirm.classList.remove('show');
+        this.modal.classList.remove('show');
+        this.eventsEnable();
     }
 
     productSave(e) {
         e.preventDefault();
-        let formData = new FormData(this.form);
+
         const product = {
             id: +(this.lastProductId + 1),
-            name: formData.get('product_name'),
-            price: +(formData.get('product_price')),
+            name: this.form.elements.name.value,
+            price: +(this.form.elements.price.value),
         }
 
         if (this.editProductId) {
@@ -120,14 +141,19 @@ export default class ProductsCrud {
 
         this.form.reset();
         this.modal.classList.remove('show');
-
-        this.eventsEnable();
+        
         this.updateList();
+        this.eventsEnable();
     }
 
-    showModal() {
+    showModal(element) {
+        element.classList.add('show');
         this.modal.classList.add('show');
         this.modal.style.left = (this.products.offsetWidth / 2) - (this.modal.offsetWidth / 2) + 'px';
+
+        if (this.form.classList.contains('show')) {
+            this.form.elements.name.focus();
+        }
 
         this.eventsDisable();
     }

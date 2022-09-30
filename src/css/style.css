@@ -76,44 +76,52 @@
     background-color: #fff;
 }
 
-.form {
+.product-form,
+.delete {
+    display: none;
     padding: 20px;
 }
 
-.modal-form__field {
+.product-form__field {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-bottom: 10px;
 }
 
-#modal-form input {
+.product-form input {
     padding: 5px;
     min-width: 250px;
 }
 
-.modal-form__buttons {
+.product-form__buttons,
+.delete-buttons {
     display: flex;
     justify-content: space-evenly;
     padding-top: 10px;
 }
 
-.modal-form__buttons button {
+.product-form__buttons button,
+.delete-buttons button {
     padding: 5px 10px;
     cursor: pointer;
+    min-width: 60px;
 }
 
-.modal-form__buttons button:hover {
+.product-form__buttons button:hover,
+.delete-buttons button:hover {
     outline: 5px solid #dee2e6;
 }
 
-.modal-form__buttons_save {
+.product-form__buttons_save,
+.delete-buttons_save {
     background: green;
     color: #fff;
     border: 1px solid green;
 }
 
-.modal-form__buttons_reset {
+.product-form__buttons_reset,
+.delete-buttons_reset {
     background: red;
     color: #fff;
     border: 1px solid red;
