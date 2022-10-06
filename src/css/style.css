@@ -147,7 +147,6 @@
     max-width: 276px;
     margin-bottom: 8px;
     z-index: 999;
-    /* border: 1px solid rgba(0,0,0,.2); */
     border: 1px solid red;
     transition: opacity .5s linear;
     opacity: 0;
@@ -165,7 +164,6 @@
 }
 
 .arrow {
-    /* left: 125px; */
     top: calc((0.5rem + 1px) * -1);
     position: absolute;
     display: block;
@@ -192,7 +190,6 @@
 .arrow::after {
     top: 1px;
     border-width: 0 8px 8px 8px;
-    /* border-bottom-color: #f7f7f7; */
     border-bottom-color: #fff;
 }
 
