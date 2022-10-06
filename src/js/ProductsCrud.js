@@ -6,10 +6,10 @@ export default class ProductsCrud {
 
     init() {
         this.form = document.forms.addUpdateProduct;
+        this.formInputs = document.querySelectorAll('input');
         this.deleteConfirm = document.querySelector('.delete');
         this.modal = document.querySelector('.modal');
 
-        this.productSaveBtn = document.querySelector('.product-form__buttons_save');
         this.productCancelBtn = document.querySelector('.product-form__buttons_reset');
 
         this.products = document.querySelector('.products');
@@ -26,9 +26,19 @@ export default class ProductsCrud {
     }
     
     events() {
-        this.productSaveBtn.addEventListener('click', (e) => this.productSave(e));
+        this.form.addEventListener('submit', (e) => this.productSave(e));
         this.productCancelBtn.addEventListener('click', (e) => this.productCancel(e));
         this.products.addEventListener('click', (e) => this.eventsButtons(e));
+
+        Array.from(this.formInputs).forEach(item => {
+            item.addEventListener('focus', () => {
+                this.validateClear();
+            });
+
+            item.addEventListener('blur', () => {
+                this.validate(item);
+            });
+        });
 
         // this.eventsOnce(); // События с параметром once: true
     }
@@ -76,6 +86,7 @@ export default class ProductsCrud {
         this.form.reset();
         this.form.classList.remove('show');
         this.modal.classList.remove('show');
+        this.validateClear();
 
         this.eventsEnable();
         this.editProductId = null;
@@ -121,6 +132,13 @@ export default class ProductsCrud {
 
     productSave(e) {
         e.preventDefault();
+        const isValid = e.currentTarget.checkValidity();
+
+        if (!isValid) {
+            const firstNoValidInput = [...this.form.elements].find(o => !o.validity.valid);
+            this.validate(firstNoValidInput);
+            return;
+        };
 
         const product = {
             id: +(this.lastProductId + 1),
@@ -140,6 +158,7 @@ export default class ProductsCrud {
         }
 
         this.form.reset();
+        this.form.classList.remove('show');
         this.modal.classList.remove('show');
         
         this.updateList();
@@ -147,15 +166,55 @@ export default class ProductsCrud {
     }
 
     showModal(element) {
+        this.validateClear();
         element.classList.add('show');
         this.modal.classList.add('show');
         this.modal.style.left = (this.products.offsetWidth / 2) - (this.modal.offsetWidth / 2) + 'px';
 
-        if (this.form.classList.contains('show')) {
-            this.form.elements.name.focus();
-        }
-
         this.eventsDisable();
+    }
+
+    validate(input) {
+        if (!input.validity.valid) {
+            switch(input.name) {
+                case 'product_name': this.showError('Введите название товара', input);
+                break;
+                case 'product_price':  this.showError('Введите цену товара (больше 0)', input);
+                break;
+              }
+        }
+    }
+
+    validateClear() {
+        const popoversExist = document.querySelectorAll('.popover');
+        if (popoversExist.length > 0) {
+            Array.from(popoversExist).forEach(item => {
+                item.classList.remove('popover-visible');
+                setTimeout(() => item.remove(), 500);
+            });
+        };
+    }
+
+    showError(text, input) {
+        const popoverDiv = document.createElement('div');
+        popoverDiv.className = 'popover';
+      
+        const arrowDiv = document.createElement('div');
+        arrowDiv.className = 'arrow';
+      
+        const popoverContent = document.createElement('div');
+        popoverContent.className = 'popover-body';
+        popoverContent.textContent = text;
+      
+        popoverDiv.append(arrowDiv);
+        popoverDiv.append(popoverContent);
+      
+        input.after(popoverDiv);
+
+        arrowDiv.style.left = `${(popoverDiv.offsetWidth / 2) - (arrowDiv.offsetWidth / 2)}px`;
+        popoverDiv.style.top = `${input.closest('.product-form__field').offsetHeight - 2}px`;
+
+        popoverDiv.classList.add('popover-visible');
     }
 
     updateList() {
