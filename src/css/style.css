@@ -100,7 +100,7 @@
 .delete-buttons {
     display: flex;
     justify-content: space-evenly;
-    padding-top: 10px;
+    padding-top: 30px;
 }
 
 .product-form__buttons button,
