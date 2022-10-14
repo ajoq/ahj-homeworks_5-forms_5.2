@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/7ts6a7a2wcqfi88w?svg=true)](https://ci.appveyor.com/project/ajoq/ahj-homeworks-5-forms-5-2)
+[![Build status](https://ci.appveyor.com/api/projects/status/0jflrntwfinepjhi?svg=true)](https://ci.appveyor.com/project/ajoq/ahj-homeworks-5-forms-5-2)
 
 https://ajoq.github.io/ahj-homeworks_5-forms_5.2/
 
