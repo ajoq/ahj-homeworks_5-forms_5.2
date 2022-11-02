@@ -169,7 +169,7 @@ export default class ProductsCrud {
     this.validateClear();
     element.classList.add('show');
     this.modal.classList.add('show');
-    this.modal.style.left = `${(this.products.offsetWidth / 2) - (this.modal.offsetWidth / 2)}px`;
+    this.modal.style.left = `${(this.products.getBoundingClientRect().width / 2) - (this.modal.getBoundingClientRect().width / 2)}px`;
 
     this.eventsDisable();
   }
@@ -212,8 +212,8 @@ export default class ProductsCrud {
 
     input.after(popoverDiv);
 
-    arrowDiv.style.left = `${(popoverDiv.offsetWidth / 2) - (arrowDiv.offsetWidth / 2)}px`;
-    popoverDiv.style.top = `${input.closest('.product-form__field').offsetHeight - 2}px`;
+    arrowDiv.style.left = `${(popoverDiv.getBoundingClientRect().width / 2) - (arrowDiv.getBoundingClientRect().width) + 3}px`;
+    popoverDiv.style.top = `${input.closest('.product-form__field').getBoundingClientRect().height - 2}px`;
 
     popoverDiv.classList.add('popover-visible');
   }
