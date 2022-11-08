@@ -21,7 +21,9 @@ export default class ProductsCrud {
 
     this.editProductId = null;
     this.editProductArrIndex = null;
-    this.lastProductId = this.productsArr.length;
+
+    const sortArr = this.productsArr.slice();
+    this.lastProductId = (sortArr.sort((a, b) =>  a.id - b.id)).at(-1).id;
 
     this.events();
     this.updateList();

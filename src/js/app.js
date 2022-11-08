@@ -2,7 +2,7 @@ import ProductsCrud from './ProductsCrud';
 
 const demoContent = [
   {
-    id: 1,
+    id: 30,
     name: 'iPhone XR',
     price: 60000,
   },
@@ -12,7 +12,7 @@ const demoContent = [
     price: 80000,
   },
   {
-    id: 3,
+    id: 1,
     name: 'Huawei View',
     price: 50000,
   },
